@@ -8,27 +8,27 @@ import (
 	"strings"
 	"time"
 	"strconv"
-)
+	)
 
 func runUpdate() {
 	username := os.Getenv("USER_NAME")
 	if username == "" {
-		panic("USER_NAME NOT PASSED!")
+		panic("USER_NAME ENVIRONMENT VARIABLE NOT PASSED!")
 	}
 
 	password := os.Getenv("USER_PASSWD")
 	if password == "" {
-		panic("USER_PASSWD NOT PASSED!")
+		panic("USER_PASSWD ENVIRONMENT VARIABLE NOT PASSED!")
 	}
 
 	hostname := os.Getenv("HOST_NAME")
 	if hostname == "" {
-		panic("HOST_NAME NOT PASSED!")
+		panic("HOST_NAME ENVIRONMENT VARIABLE NOT PASSED!")
 	}
 
 	ip := os.Getenv("IP")
 	if ip == "" {
-		fmt.Println("WARNING: IP not passed. Using external IP.")
+		fmt.Println("WARNING: IP environment variable not set. Using external IP.")
 		resp, err := http.Get("http://myexternalip.com/raw")
 		if err != nil {
 			panic(err)
@@ -39,7 +39,6 @@ func runUpdate() {
 			panic(err)
 		}
 		ip = strings.Replace(string(body), "\n", "", -1)
-		fmt.Printf("External IP: %s\n", ip)
 	}
 
 	req, err := http.NewRequest("GET", fmt.Sprintf("https://%s:%s@dynupdate.no-ip.com/nic/update?hostname=%s&myip=%s", username, password, hostname, ip), nil)
