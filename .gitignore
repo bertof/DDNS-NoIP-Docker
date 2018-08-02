@@ -232,3 +232,5 @@ $RECYCLE.BIN/
 
 
 # End of https://www.gitignore.io/api/go,vim,git,osx,macos,linux,windows,intellij,sublimetext,visualstudiocode
+
+env
